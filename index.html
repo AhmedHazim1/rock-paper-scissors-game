@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
+
+  <link rel="stylesheet" href="./style.css">
+  <title>Rock Paper Scissors</title>
+
+</head>
+<body>
+  <header class="main-header rules_background">
+    <img class="log" src="./images/logo.svg" alt="ROCK PAPER SCISSORS">
+    <div class="score-container">
+      <h2>Score
+        <span id="score_num">0</span>
+      </h2>
+    </div>
+  </header>
+  
+  <main>
+    <section class="buttons_container rules_background">      
+      <div id="paper-scissors-div">
+        <div class="bt" id="paper" onclick="start('paper')">
+          <img class="img" src="./images/icon-paper.svg" alt="paper">
+        </div>
+        <div class="bt" id="scissors" onclick="start('scissors')">
+          <img class="img" src="./images/icon-scissors.svg" alt="scissors">
+        </div>
+      </div>
+
+      <div class="bt" id="rock" onclick="start('rock')">
+        <img class="img"  src="./images/icon-rock.svg" alt="rock">
+      </div>
+    </section>
+    
+    <section class="rules rules_card">
+      <header class="rules-header">RULES</header>
+      
+      <img id="close-img" src="./images/icon-close.svg" 
+          alt="close" onclick="show_rules()">
+      <img id="rules-img" src="./images/image-rules.svg" 
+        alt="paper beats rock beats scissors beats paper">
+    </section>
+  </main>
+  
+  <footer class="rules_background">
+    <button id="rules_bt" onclick="show_rules()">Rules</button>
+    <div id="result_container">
+      <button class="playAgain_bt" onclick="playAgain()">
+        PLAY AGAIN
+      </button>
+    </div>
+  </footer>
+
+  <canvas></canvas>
+  <script src="./app.js"></script>
+</body>
+</html>

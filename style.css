@@ -1,0 +1,385 @@
+*{
+    margin: 0;
+}
+:root{
+    --body_height: 100vh;
+    --main_height: auto;
+
+    --header_width: 60vw;
+    --bt_cotainer_height: 3em; 
+    --bt_cotainer_width: 3em;
+    --bt_border_size: 1em;
+    --img_position: -10px;
+    --bt_shadw_size: .3em;
+    --bt_padding: 1.5em;
+    --img_size: 2.5em;
+    --rules_bt_position: 0;
+    --triangle_size: 15em;
+    --score_font_size: 1rem;
+    --score_num_font_size: 3rem;
+    
+    --black_circle_width: calc(var(--bt_cotainer_width) + var(--bt_padding) + 2.2em);
+    --black_circle_height: calc(var(--bt_cotainer_height) + var(--bt_padding) + 2.2em);
+
+    /* colors */
+    --main-blu: hsl(230, 89%, 62%);
+    --main-dark-blue: hsl(230, 99%, 62%);
+
+    --main-orange : hsl(39, 89%, 49%);
+    --main-dark-orange : hsl(39, 59%, 49%);
+
+    --main-red : hsl(349, 71%, 52%);
+    --main-dark-red : hsl(349, 51%, 42%);
+
+    --main-background-color: hsl(214, 47%, 23%); 
+    --main-drak-background-color: hsl(237, 49%, 15%);
+}
+body{
+    background: linear-gradient(180deg,var(--main-background-color), var(--main-drak-background-color));
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    height: var(--body_height);
+    min-height: 40em;
+}
+canvas{
+    top: 0;
+    position: absolute;
+    z-index: 1;
+}
+.main-header{
+    position: relative;
+    display: flex;
+    margin: auto;
+    top: 2em;
+    width: clamp(20em, var(--header_width), 50em);
+    border: 1px solid white;
+    border-radius: 1em;
+    height: 6em;    
+}
+.score-container{
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    background-color: white;
+    border-radius: .4em;
+    margin: .2em;
+    padding: .3em 2.5em;
+    text-align: center;
+}
+.log{
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    height: clamp(3em,5em,5em);
+    width: auto;
+}
+.score-container h2{
+    display: grid;
+    color: var(--main-blu);
+    font-size: var(--score_font_size);
+    line-height: 1.1;
+}
+h2 span{
+    font-weight: 600;
+    color: var(--main-background-color);
+    font-size: var(--score_num_font_size);
+}
+/* main content */
+main{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-image: url("./images/bg-triangle.svg");
+    background-size: var(--triangle_size);
+    background-position: center 130px;
+    background-repeat: no-repeat;
+    height: var(--main_height);
+}
+.buttons_container{
+    display: grid;
+    padding-top: 5em;
+    justify-self: center;
+    row-gap: 3em;
+    grid-template-areas: "paper-scissors paper-scissors paper-scissors"
+                        ". rock .";
+}
+#paper-scissors-div{grid-area: paper-scissors;}
+#rock{grid-area: rock}
+#paper-scissors-div{
+    display: flex;
+    gap: 5em;
+}
+/* .notbt we will use it after the user click the button to show thim the what did he/she choose */
+.bt,.notbt{
+    display: flex;
+    position: relative;
+    background-color: white;
+    justify-content: center;
+    max-width: var(--bt_cotainer_width);
+    min-width: 2em;
+    
+    max-height: var(--bt_cotainer_height);
+    min-height: 2em;
+    padding: var(--bt_padding);
+    border: var(--bt_border_size) solid var(--main-blu);
+    border-radius: 50%;
+    box-shadow: 1px var(--bt_shadw_size) 0 var(--main-dark-blue);
+    transition: all .2s ease;
+    margin: auto;
+}
+.bt:hover{
+    scale: 110%;
+}
+.img{
+    position: absolute;
+    width: auto;
+    height: var(--img_size);
+    top: var(--img_position);
+    padding: 2em;
+}
+/* I did't styel the paper becase in the .bt style it there */
+
+#scissors{
+    border-color:var(--main-orange);
+    box-shadow: 1px var(--bt_shadw_size) 0 var(--main-dark-orange);
+}
+/* we will use .rock in the step 2 becuse if we use #rock when the player choose it it will be effected by the (.buttons_container) grid  */
+#rock,.rock{
+    border-color:var(--main-red);
+    box-shadow: 1px var(--bt_shadw_size) 0 var(--main-dark-red);
+}
+/* footer */
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5em;
+    position: relative;
+    z-index: 2;
+}
+/* rules button */
+#rules_bt{
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    border-radius: .2em;
+    border: 1px solid white;
+    padding: .6em 2em;
+    font-weight: 600;
+    transition: all .2s ease;
+    margin: auto;
+    top: -50px;
+}
+#rules_bt:hover{scale: 105%;}
+/* rules card */
+.rules{
+    display: none;
+    position: absolute;
+    top: -98px;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    grid-template-areas: "header"
+    "rules"
+    "close";
+    row-gap: 2em;
+    background: white;
+    z-index: 3;
+}
+.rules-header{grid-area: header}
+#rules-img{grid-area: rules}
+#close-img{grid-area: close}
+
+#rules-img,#close-img{
+    padding-bottom: 5em;
+}
+.rules-header{
+    padding-top: 5em;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--main-background-color);
+}
+.rules img{
+    margin: auto
+}
+#close-img{
+    transition: all .3s ease;
+}
+#close-img:hover{
+    scale: 120%;
+}
+
+/* step 2 */
+.players_container{
+    display: flex;
+    gap: 5em;
+    text-align: center;
+    padding-top: 8em;
+}
+.house{
+    padding-bottom: 2.5em;
+    width: 4em;
+    height: 4em;
+}
+.grid{
+    display: grid;
+    gap: 2em;
+}
+.black_circle{
+    width: var(--black_circle_width);
+    height: var(--black_circle_height);
+    border-radius: 50%;
+    background-color: var(--main-drak-background-color);
+}
+p{
+    color: white;
+    font-weight: 700;
+}
+.playAgain_bt{
+    display: none;
+    position: absolute;
+    padding: .5em 2.5em;
+    color: var(--main-background-color);
+    border: 1px solid white;
+    border-radius: .3em;
+    transition: all .3s ease;
+    margin: auto;
+}
+.playAgain_bt:hover{
+    scale: 105%;
+}
+
+.result{
+    display: block;
+    position: absolute;
+    color: white;
+    font-size: 2.3rem;
+    top: -65px;
+    text-align: center;
+}
+#result_container{
+    display: flex;
+    text-align: center;
+    width: 10em;
+    height: 10em;
+    padding-left: .5em;
+}
+/* phone/ipad media querys*/
+@media (max-width: 500px) { 
+    #paper-scissors-div{
+        gap: 5em;
+    }
+}
+@media (min-width: 650px) {   
+    .rules{
+        display: absolute;
+        top: 0;
+        width: 25em;
+        height: 25em;
+        column-gap: 16em;
+        border-radius: .5em;
+        grid-template-areas: "header close"
+        "rules rules";
+        padding: 2em;
+        padding-bottom: 3em;
+        row-gap: 2em;
+    }
+    #close-img{
+        padding-top: .5em;
+    }
+    #rules-img,#close-img{
+        padding-bottom: 0;
+    }
+    .rules-header{
+        padding-top: 0;
+    }
+    .rules-header{
+        font-size: 2rem;
+    }
+    #close-img{
+        height: auto;
+        width: 1.5em;
+    }
+    #rules-img{
+        height: auto;
+        width: 25em;
+    }
+}
+/* desktop media query */
+@media (min-width: 1600px) { 
+    :root{
+        --img_position: -10px;
+        --bt_padding: 2em;
+        --bt_cotainer_height: 5em;
+        --bt_cotainer_width: 5em;
+        --bt_border_size: 1em;
+        --bt_shadw_size: .4em;
+        --img_size: 3.5em;
+
+        --triangle_size: 20em;
+        --rules_bt_position: 5em;
+
+        --black_circle_width: calc(var(--bt_cotainer_width) + var(--bt_padding) + 1em);
+        --black_circle_height: calc(var(--bt_cotainer_height) + var(--bt_padding) + 1em);
+    }
+
+    html{
+        height: 100vh;
+    }
+    .bt,.notbt{
+        padding: var(--bt_padding);
+    }
+    .buttons_container{
+        display: grid;
+        justify-self: center;
+        row-gap: 6.5em; 
+    }
+    #paper-scissors-div{
+        gap: 8em;
+    }
+    #rules_bt{
+        position: absolute;
+        margin-top: 3em;
+        padding: 1em 5em;
+        right: var(--rules_bt_position);
+    }
+    .playAgain_bt{
+        display: none;
+        position: absolute;
+        padding: .5em 2.5em;
+        color: var(--main-background-color);
+        border: 1px solid white;
+        border-radius: .3em;
+        transition: all .3s ease;
+    }
+    .playAgain_bt:hover{
+        scale: 105%;
+    }
+    
+    .result{
+        display: flex;
+        position: absolute;
+        color: white;
+        font-size: 2.3rem;
+        margin: auto;
+    }
+}
+@media (min-width: 2000px) {
+    :root{
+        --bt_cotainer_height: 8em;
+        --bt_cotainer_width: 8em;
+        --bt_border_size: 1.3em;
+        --bt_shadw_size: .5em;
+        --img_size: 4em;
+
+        --triangle_size: 30em;
+
+        --black_circle_width: calc(var(--bt_cotainer_width) + var(--bt_padding) - 1em);
+        --black_circle_height: calc(var(--bt_cotainer_height) + var(--bt_padding) - 1em);
+    }
+    .buttons_container{
+        row-gap: 12em; 
+    }
+    #paper-scissors-div{
+        gap: 15em;
+    }
+}
